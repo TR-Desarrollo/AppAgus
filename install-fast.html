@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Instalación RÁPIDA AppAgus</title>
+    <link rel="manifest" href="manifest-fast.json">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .install-container {
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            margin: 0 auto 1.5rem;
+            display: block;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .install-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        }
+        .install-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+        .install-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .status {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .status.installing {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .status.success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .features {
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .feature-icon {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="install-container">
+        <img src="LogoCaballo.jpg" alt="AppAgus" class="logo">
+        <h1>🚀 AppAgus</h1>
+        <p class="subtitle">
+            Dashboard PWA para gestión inteligente de Remises Bruno.<br>
+            <strong>Instalación RÁPIDA y optimizada</strong>
+        </p>
+        
+        <button id="installBtn" class="install-btn">
+            📱 Instalar AppAgus
+        </button>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span>Service Worker optimizado para instalación rápida</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🎯</span>
+                <span>Solo archivos esenciales cacheados</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📱</span>
+                <span>Funciona offline desde el primer momento</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚀</span>
+                <span>Navegación instantánea</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        const statusDiv = document.getElementById('status');
+        
+        // Registrar Service Worker SIMPLIFICADO
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw-simple.js')
+                .then((registration) => {
+                    console.log('Service Worker SIMPLIFICADO registrado:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Error registrando Service Worker:', error);
+                });
+        }
+        
+        // Event listener para beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('🚀 beforeinstallprompt disparado - Instalación RÁPIDA');
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.disabled = false;
+            showStatus('✅ Listo para instalar - Haz clic en el botón', 'success');
+        });
+        
+        // Event listener para appinstalled
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('🎉 PWA instalada exitosamente');
+            showStatus('🎉 ¡AppAgus instalada exitosamente!', 'success');
+            installBtn.disabled = true;
+            installBtn.textContent = '✅ Instalado';
+            deferredPrompt = null;
+        });
+        
+        // Botón de instalación
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                showStatus('❌ No hay prompt de instalación disponible', 'error');
+                return;
+            }
+            
+            try {
+                showStatus('⏳ Instalando AppAgus...', 'installing');
+                installBtn.disabled = true;
+                
+                // Mostrar el prompt de instalación
+                deferredPrompt.prompt();
+                
+                // Esperar la respuesta del usuario
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    showStatus('✅ Usuario aceptó la instalación', 'success');
+                } else {
+                    showStatus('❌ Usuario rechazó la instalación', 'error');
+                    installBtn.disabled = false;
+                }
+                
+                // Limpiar el prompt
+                deferredPrompt = null;
+                
+            } catch (error) {
+                console.error('Error durante la instalación:', error);
+                showStatus('❌ Error durante la instalación: ' + error.message, 'error');
+                installBtn.disabled = false;
+            }
+        });
+        
+        // Función para mostrar estado
+        function showStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+        }
+        
+        // Verificar si ya está instalada
+        if (window.matchMedia('(display-mode: standalone)').matches || 
+            window.navigator.standalone === true) {
+            showStatus('✅ AppAgus ya está instalada y ejecutándose', 'success');
+            installBtn.disabled = true;
+            installBtn.textContent = '✅ Ya Instalado';
+        }
+        
+        // Mostrar estado inicial
+        showStatus('⏳ Esperando prompt de instalación...', 'installing');
+    </script>
+</body>
+</html>
