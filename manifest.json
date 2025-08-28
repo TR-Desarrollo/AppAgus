@@ -1,13 +1,13 @@
 {
-  "name": "AppAgus - Dashboard de Remises Bruno",
+  "name": "AppAgus",
   "short_name": "AppAgus",
   "description": "Dashboard PWA para gestión inteligente de Remises Bruno - Presupuestos y finanzas",
-  "start_url": "./",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#2563eb",
   "theme_color": "#2563eb",
   "orientation": "portrait-primary",
-  "scope": "./",
+  "scope": "/",
   "lang": "es",
   "categories": ["finance", "productivity", "business"],
   "icons": [

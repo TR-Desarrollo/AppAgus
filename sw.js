@@ -73,6 +73,12 @@ self.addEventListener('fetch', (event) => {
         return;
     }
     
+    // Manejar navegación a la página principal
+    if (request.mode === 'navigate') {
+        event.respondWith(handleNavigation(request));
+        return;
+    }
+    
     // Estrategia para archivos estáticos
     if (isStaticFile(request.url)) {
         event.respondWith(handleStaticFile(request));
@@ -158,6 +164,40 @@ async function handleDynamicFile(request) {
         }
         
         // Si no hay cache, mostrar página offline
+        return getOfflineResponse();
+    }
+}
+
+// Estrategia para navegación
+async function handleNavigation(request) {
+    try {
+        // Intentar fetch primero
+        const networkResponse = await fetch(request);
+        if (networkResponse.ok) {
+            // Cachear la respuesta
+            const cache = await caches.open(DYNAMIC_CACHE);
+            cache.put(request, networkResponse.clone());
+            console.log('Navegación cacheada:', request.url);
+        }
+        return networkResponse;
+    } catch (error) {
+        console.log('Red no disponible, intentando cache para navegación:', request.url);
+        
+        // Fallback al cache
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) {
+            console.log('Navegación servida desde cache:', request.url);
+            return cachedResponse;
+        }
+        
+        // Si no hay cache, intentar servir index.html
+        const fallbackResponse = await caches.match('/index.html');
+        if (fallbackResponse) {
+            console.log('Sirviendo index.html como fallback para navegación');
+            return fallbackResponse;
+        }
+        
+        // Si no hay nada, mostrar página offline
         return getOfflineResponse();
     }
 }

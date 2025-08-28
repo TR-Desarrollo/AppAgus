@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PWA AppAgus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .install-btn {
+            background: #28a745;
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+        .install-btn:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test PWA AppAgus</h1>
+    
+    <div class="test-section">
+        <h2>📱 Estado de la PWA</h2>
+        <div id="pwa-status"></div>
+        <button class="install-btn" id="installBtn" style="display: none;">
+            📱 Instalar AppAgus
+        </button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 Verificaciones Técnicas</h2>
+        <div id="technical-checks"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Manifest</h2>
+        <div id="manifest-info"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>⚙️ Service Worker</h2>
+        <div id="sw-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔄 Acciones</h2>
+        <button onclick="checkInstallability()">Verificar Instalabilidad</button>
+        <button onclick="clearCache()">Limpiar Cache</button>
+        <button onclick="updateSW()">Actualizar Service Worker</button>
+        <button onclick="location.reload()">Recargar Página</button>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        
+        // Verificar estado de la PWA
+        function checkPWAStatus() {
+            const statusDiv = document.getElementById('pwa-status');
+            const installBtn = document.getElementById('installBtn');
+            
+            // Verificar si ya está instalada
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                statusDiv.innerHTML = '<div class="status success">✅ PWA ya está instalada y ejecutándose en modo standalone</div>';
+                installBtn.style.display = 'none';
+            } else {
+                statusDiv.innerHTML = '<div class="status info">ℹ️ PWA no instalada - Puede instalarse desde el botón arriba</div>';
+            }
+        }
+        
+        // Verificaciones técnicas
+        function checkTechnicalRequirements() {
+            const checksDiv = document.getElementById('technical-checks');
+            let checks = [];
+            
+            // HTTPS check
+            if (location.protocol === 'https:' || location.hostname === 'localhost') {
+                checks.push('<div class="status success">✅ HTTPS/Localhost: OK</div>');
+            } else {
+                checks.push('<div class="status error">❌ HTTPS requerido para instalación</div>');
+            }
+            
+            // Service Worker support
+            if ('serviceWorker' in navigator) {
+                checks.push('<div class="status success">✅ Service Worker: Soportado</div>');
+            } else {
+                checks.push('<div class="status error">❌ Service Worker: No soportado</div>');
+            }
+            
+            // Manifest check
+            if (document.querySelector('link[rel="manifest"]')) {
+                checks.push('<div class="status success">✅ Manifest: Encontrado</div>');
+            } else {
+                checks.push('<div class="status error">❌ Manifest: No encontrado</div>');
+            }
+            
+            // Install prompt
+            if (deferredPrompt) {
+                checks.push('<div class="status success">✅ Install Prompt: Disponible</div>');
+            } else {
+                checks.push('<div class="status warning">⚠️ Install Prompt: No disponible aún</div>');
+            }
+            
+            checksDiv.innerHTML = checks.join('');
+        }
+        
+        // Información del manifest
+        async function getManifestInfo() {
+            const manifestDiv = document.getElementById('manifest-info');
+            
+            try {
+                const response = await fetch('./manifest.json');
+                const manifest = await response.json();
+                
+                manifestDiv.innerHTML = `
+                    <div class="status info">
+                        <strong>Nombre:</strong> ${manifest.name}<br>
+                        <strong>Descripción:</strong> ${manifest.description}<br>
+                        <strong>Display:</strong> ${manifest.display}<br>
+                        <strong>Iconos:</strong> ${manifest.icons.length} iconos configurados<br>
+                        <strong>Scope:</strong> ${manifest.scope}
+                    </div>
+                `;
+            } catch (error) {
+                manifestDiv.innerHTML = '<div class="status error">❌ Error cargando manifest: ' + error.message + '</div>';
+            }
+        }
+        
+        // Estado del Service Worker
+        async function checkServiceWorker() {
+            const swDiv = document.getElementById('sw-status');
+            
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                        swDiv.innerHTML = `
+                            <div class="status success">
+                                ✅ Service Worker registrado<br>
+                                <strong>Estado:</strong> ${registration.active ? 'Activo' : 'Inactivo'}<br>
+                                <strong>Scope:</strong> ${registration.scope}
+                            </div>
+                        `;
+                    } else {
+                        swDiv.innerHTML = '<div class="status warning">⚠️ Service Worker no registrado</div>';
+                    }
+                } catch (error) {
+                    swDiv.innerHTML = '<div class="status error">❌ Error verificando Service Worker: ' + error.message + '</div>';
+                }
+            } else {
+                swDiv.innerHTML = '<div class="status error">❌ Service Worker no soportado</div>';
+            }
+        }
+        
+        // Event listeners
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt disparado');
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'block';
+            checkTechnicalRequirements();
+        });
+        
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('PWA instalada exitosamente');
+            checkPWAStatus();
+        });
+        
+        // Botón de instalación
+        document.getElementById('installBtn').addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                alert('No hay prompt de instalación disponible');
+                return;
+            }
+            
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                alert('¡Instalación aceptada!');
+            } else {
+                alert('Instalación cancelada');
+            }
+            
+            deferredPrompt = null;
+            document.getElementById('installBtn').style.display = 'none';
+        });
+        
+        // Funciones de utilidad
+        function checkInstallability() {
+            checkTechnicalRequirements();
+            checkPWAStatus();
+            checkServiceWorker();
+        }
+        
+        async function clearCache() {
+            if ('caches' in window) {
+                try {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                    alert('Cache limpiado exitosamente');
+                } catch (error) {
+                    alert('Error limpiando cache: ' + error.message);
+                }
+            }
+        }
+        
+        async function updateSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                        await registration.update();
+                        alert('Service Worker actualizado');
+                    }
+                } catch (error) {
+                    alert('Error actualizando Service Worker: ' + error.message);
+                }
+            }
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            checkPWAStatus();
+            checkTechnicalRequirements();
+            getManifestInfo();
+            checkServiceWorker();
+        });
+    </script>
+</body>
+</html>
