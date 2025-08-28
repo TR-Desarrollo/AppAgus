@@ -10,14 +10,8 @@ const STATIC_FILES = [
     '/styles.css',
     '/app.js',
     '/manifest.json',
-    '/icons/icon-72x72.png',
-    '/icons/icon-96x96.png',
-    '/icons/icon-128x128.png',
-    '/icons/icon-144x144.png',
-    '/icons/icon-152x152.png',
-    '/icons/icon-192x192.png',
-    '/icons/icon-384x384.png',
-    '/icons/icon-512x512.png'
+    '/LogoCaballo.jpg',
+    '/icons/icon.svg'
 ];
 
 // Estrategia de cache: Cache First para archivos estáticos
@@ -290,8 +284,8 @@ self.addEventListener('push', (event) => {
         const data = event.data.json();
         const options = {
             body: data.body || 'Nueva notificación de AppAgus',
-            icon: '/icons/icon-192x192.png',
-            badge: '/icons/icon-72x72.png',
+            icon: '/LogoCaballo.jpg',
+            badge: '/LogoCaballo.jpg',
             vibrate: [200, 100, 200],
             data: {
                 url: data.url || '/'
@@ -300,12 +294,12 @@ self.addEventListener('push', (event) => {
                 {
                     action: 'open',
                     title: 'Abrir',
-                    icon: '/icons/icon-72x72.png'
+                    icon: '/LogoCaballo.jpg'
                 },
                 {
                     action: 'close',
                     title: 'Cerrar',
-                    icon: '/icons/icon-72x72.png'
+                    icon: '/LogoCaballo.jpg'
                 }
             ]
         };

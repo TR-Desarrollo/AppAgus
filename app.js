@@ -73,7 +73,8 @@ function openPresupuestoModal() {
 // Funcionalidad de instalación PWA
 function checkInstallability() {
     // Verificar si la app ya está instalada
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (window.matchMedia('(display-mode: standalone)').matches || 
+        window.navigator.standalone === true) {
         hideInstallButton();
         return;
     }
@@ -82,6 +83,35 @@ function checkInstallability() {
     if (deferredPrompt) {
         showInstallButton();
     }
+    
+    // Verificar criterios de instalación
+    if (isInstallable()) {
+        console.log('App cumple criterios de instalación');
+    } else {
+        console.log('App no cumple criterios de instalación');
+    }
+}
+
+function isInstallable() {
+    // Verificar que tengamos un Service Worker registrado
+    if (!('serviceWorker' in navigator)) {
+        console.log('Service Worker no soportado');
+        return false;
+    }
+    
+    // Verificar que tengamos un manifest válido
+    if (!document.querySelector('link[rel="manifest"]')) {
+        console.log('Manifest no encontrado');
+        return false;
+    }
+    
+    // Verificar que estemos en HTTPS o localhost
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+        console.log('HTTPS requerido para instalación');
+        return false;
+    }
+    
+    return true;
 }
 
 function showInstallButton() {
