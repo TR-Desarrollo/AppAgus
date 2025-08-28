@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Instalación RÁPIDA AppAgus</title>
+    <title>🔧 AppAgus - Instalación FUNCIONAL</title>
     <link rel="manifest" href="manifest-fast.json">
     <style>
         body {
@@ -56,6 +56,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+            margin: 0.5rem;
         }
         .install-btn:hover {
             background: #059669;
@@ -86,6 +87,14 @@
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
+        .warning {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fbbf24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
         .features {
             margin-top: 2rem;
             text-align: left;
@@ -105,34 +114,42 @@
 <body>
     <div class="install-container">
         <img src="LogoCaballo.jpg" alt="AppAgus" class="logo">
-        <h1>🚀 AppAgus</h1>
+        <h1>🔧 AppAgus</h1>
         <p class="subtitle">
             Dashboard PWA para gestión inteligente de Remises Bruno.<br>
-            <strong>Instalación RÁPIDA y optimizada</strong>
+            <strong>Instalación FUNCIONAL - Sin pantalla azul</strong>
         </p>
+        
+        <div class="warning">
+            ⚠️ <strong>IMPORTANTE:</strong> Esta versión usa un Service Worker ultra simple para evitar la pantalla azul
+        </div>
         
         <button id="installBtn" class="install-btn">
             📱 Instalar AppAgus
+        </button>
+        
+        <button id="testBtn" class="install-btn" style="background: #f59e0b;">
+            🧪 Probar Funcionamiento
         </button>
         
         <div id="status" class="status" style="display: none;"></div>
         
         <div class="features">
             <div class="feature">
-                <span class="feature-icon">⚡</span>
-                <span>Service Worker optimizado para instalación rápida</span>
+                <span class="feature-icon">🔧</span>
+                <span>Service Worker ULTRA SIMPLE - Sin lógica compleja</span>
             </div>
             <div class="feature">
-                <span class="feature-icon">🎯</span>
-                <span>Solo archivos esenciales cacheados</span>
+                <span class="feature-icon">✅</span>
+                <span>Cache First siempre - Archivos siempre disponibles</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚫</span>
+                <span>Sin estrategias complejas que puedan fallar</span>
             </div>
             <div class="feature">
                 <span class="feature-icon">📱</span>
                 <span>Funciona offline desde el primer momento</span>
-            </div>
-            <div class="feature">
-                <span class="feature-icon">🚀</span>
-                <span>Navegación instantánea</span>
             </div>
         </div>
     </div>
@@ -140,22 +157,25 @@
     <script>
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
+        const testBtn = document.getElementById('testBtn');
         const statusDiv = document.getElementById('status');
         
-        // Registrar Service Worker SIMPLIFICADO
+        // Registrar Service Worker ULTRA SIMPLE
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw-simple.js')
+            navigator.serviceWorker.register('./sw-ultra-simple.js')
                 .then((registration) => {
-                    console.log('Service Worker SIMPLIFICADO registrado:', registration.scope);
+                    console.log('Service Worker ULTRA SIMPLE registrado:', registration.scope);
+                    showStatus('✅ Service Worker ULTRA SIMPLE registrado', 'success');
                 })
                 .catch((error) => {
                     console.error('Error registrando Service Worker:', error);
+                    showStatus('❌ Error registrando Service Worker: ' + error.message, 'error');
                 });
         }
         
         // Event listener para beforeinstallprompt
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('🚀 beforeinstallprompt disparado - Instalación RÁPIDA');
+            console.log('🔧 beforeinstallprompt disparado - Instalación FUNCIONAL');
             e.preventDefault();
             deferredPrompt = e;
             installBtn.disabled = false;
@@ -202,6 +222,38 @@
                 console.error('Error durante la instalación:', error);
                 showStatus('❌ Error durante la instalación: ' + error.message, 'error');
                 installBtn.disabled = false;
+            }
+        });
+        
+        // Botón de prueba
+        testBtn.addEventListener('click', async () => {
+            try {
+                showStatus('🧪 Probando funcionamiento...', 'installing');
+                
+                // Probar fetch de archivos principales
+                const files = ['/', '/index.html', '/styles.css', '/app.js'];
+                let successCount = 0;
+                
+                for (const file of files) {
+                    try {
+                        const response = await fetch(file);
+                        if (response.ok) {
+                            successCount++;
+                            console.log('✅ Archivo cargado:', file);
+                        }
+                    } catch (error) {
+                        console.error('❌ Error cargando:', file, error);
+                    }
+                }
+                
+                if (successCount === files.length) {
+                    showStatus(`✅ Todos los archivos funcionan (${successCount}/${files.length})`, 'success');
+                } else {
+                    showStatus(`⚠️ Algunos archivos fallan (${successCount}/${files.length})`, 'error');
+                }
+                
+            } catch (error) {
+                showStatus('❌ Error en prueba: ' + error.message, 'error');
             }
         });
         

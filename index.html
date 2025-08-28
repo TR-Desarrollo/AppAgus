@@ -9,6 +9,18 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="LogoCaballo.jpg">
     <link rel="apple-touch-icon" href="LogoCaballo.jpg">
+    <script>
+        // Registrar Service Worker ULTRA SIMPLE para evitar pantalla azul
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw-ultra-simple.js')
+                .then((registration) => {
+                    console.log('Service Worker ULTRA SIMPLE registrado:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Error registrando Service Worker:', error);
+                });
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
