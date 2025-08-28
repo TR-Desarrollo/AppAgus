@@ -1,0 +1,578 @@
+/* Reset y variables CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #64748b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background-color: #f8fafc;
+    --surface-color: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --border-radius: 12px;
+    --transition: all 0.2s ease-in-out;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Layout principal */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+/* Posicionamiento del título en la esquina izquierda */
+.app-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-right: auto;
+}
+
+/* Posicionamiento del logo en la esquina derecha */
+.dashboard-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    animation: logoFadeIn 0.6s ease-out;
+    position: relative;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Contenedor del logo para mejor posicionamiento */
+.dashboard-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    animation: logoFadeIn 0.6s ease-out;
+    position: relative;
+    cursor: pointer;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.dashboard-logo:hover {
+    transform: scale(1.05) rotate(2deg);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Estilos para focus y accesibilidad */
+.dashboard-logo:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
+}
+
+/* Efecto de brillo sutil */
+.dashboard-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    border-radius: inherit;
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.dashboard-logo:hover::before {
+    opacity: 1;
+}
+
+.app-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+/* Estilos para el logo del dashboard */
+.dashboard-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.dashboard-logo:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Responsive para el logo */
+@media (max-width: 768px) {
+    .dashboard-logo {
+        width: 50px;
+        height: 50px;
+        border-width: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-logo {
+        width: 45px;
+        height: 45px;
+        border-width: 2px;
+    }
+}
+
+.install-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.install-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Contenido principal */
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    width: 100%;
+}
+
+/* Sección de bienvenida */
+.welcome-section {
+    margin-bottom: 2.5rem;
+}
+
+.welcome-card {
+    background: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.welcome-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-card p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Acciones rápidas */
+.quick-actions {
+    margin-bottom: 2.5rem;
+}
+
+.quick-actions h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.action-card.primary {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+.action-card.primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgb(37 99 235 / 0.25);
+}
+
+.action-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: rgba(37, 99, 235, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.action-card.primary .action-icon {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.action-content h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.action-card.primary .action-content h4 {
+    color: white;
+}
+
+.action-content p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.action-card.primary .action-content p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+
+/* Footer */
+.footer {
+    background: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+    background: var(--background-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-body p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--background-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 1rem;
+    }
+    
+    /* En móviles, el botón de instalación se posiciona debajo del header */
+    .install-btn {
+        position: static;
+        transform: none;
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .welcome-card {
+        padding: 1.5rem;
+    }
+    
+    .welcome-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .action-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-logo {
+        width: 45px;
+        height: 45px;
+        border-width: 2px;
+    }
+    
+    .welcome-card h2 {
+        font-size: 1.25rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-card {
+        padding: 1rem;
+    }
+    
+    .action-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+    .header {
+        padding-top: calc(1rem + env(safe-area-inset-top));
+    }
+    
+    .main-content {
+        padding-top: calc(2rem + env(safe-area-inset-top));
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #0f172a;
+        --surface-color: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border-color: #334155;
+    }
+    
+    .dashboard-logo {
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(1.1);
+    }
+    
+    .dashboard-logo:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.2);
+    }
+}

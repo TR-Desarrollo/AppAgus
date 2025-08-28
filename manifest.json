@@ -1,0 +1,100 @@
+{
+  "name": "AppAgus - Dashboard de Remises Bruno",
+  "short_name": "AppAgus",
+  "description": "Dashboard PWA para gestión inteligente de Remises Bruno - Presupuestos y finanzas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["finance", "productivity", "business"],
+  "icons": [
+    {
+      "src": "LogoCaballo.jpg",
+      "sizes": "60x60",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "LogoCaballo.jpg",
+      "sizes": "96x96",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "LogoCaballo.jpg",
+      "sizes": "128x128",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "LogoCaballo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "LogoCaballo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Presupuesto",
+      "short_name": "Presupuesto",
+      "description": "Acceso rápido a gestión de presupuestos",
+      "url": "/?action=presupuesto",
+      "icons": [
+        {
+          "src": "LogoCaballo.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Gastos",
+      "short_name": "Gastos",
+      "description": "Registrar y categorizar gastos",
+      "url": "/?action=gastos",
+      "icons": [
+        {
+          "src": "LogoCaballo.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "protocol_handlers": [
+    {
+      "protocol": "web+agus",
+      "url": "/?action=%s"
+    }
+  ]
+}

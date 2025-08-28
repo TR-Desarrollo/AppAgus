@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular -->
+  <circle cx="256" cy="256" r="256" fill="#2563eb"/>
+  
+  <!-- Símbolo de moneda/dinero -->
+  <circle cx="256" cy="200" r="80" fill="white" opacity="0.9"/>
+  <circle cx="256" cy="200" r="60" fill="#2563eb"/>
+  
+  <!-- Símbolo de presupuesto -->
+  <rect x="180" y="320" width="152" height="80" rx="12" fill="white" opacity="0.9"/>
+  <rect x="200" y="340" width="112" height="8" rx="4" fill="#2563eb"/>
+  <rect x="200" y="360" width="80" height="8" rx="4" fill="#2563eb"/>
+  <rect x="200" y="380" width="96" height="8" rx="4" fill="#2563eb"/>
+  
+  <!-- Líneas decorativas -->
+  <line x1="120" y1="120" x2="160" y2="160" stroke="white" stroke-width="8" opacity="0.6"/>
+  <line x1="392" y1="120" x2="352" y2="160" stroke="white" stroke-width="8" opacity="0.6"/>
+  <line x1="120" y1="392" x2="160" y2="352" stroke="white" stroke-width="8" opacity="0.6"/>
+  <line x1="392" y1="392" x2="352" y2="352" stroke="white" stroke-width="8" opacity="0.6"/>
+</svg>

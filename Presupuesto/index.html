@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Presupuesto – Remises Bruno</title>
+    <meta
+      content="Presupuesto de viaje para clientes de Remises Bruno"
+      name="description"
+    />
+    <link
+      rel="icon"
+      type="image/jpeg"
+      sizes="32x32"
+      href="Logo.jpg"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="Logo.jpg"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#7c1c2a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Remises Bruno" />
+    <meta name="msapplication-TileColor" content="#7c1c2a" />
+    <meta name="msapplication-TileImage" content="Logo.jpg" />
+    
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+
+    <style>
+      .presupuesto-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+      .presupuesto-logo {
+        max-width: 120px;
+        margin-bottom: 1rem;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 4px solid #fff;
+        background: #fff;
+        z-index: 2;
+        position: relative;
+      }
+      .presupuesto-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #7c1c2a;
+        z-index: 2;
+        position: relative;
+      }
+      .presupuesto-contacto {
+        text-align: center;
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 1.5rem;
+        z-index: 2;
+        position: relative;
+      }
+      .presupuesto-contacto span {
+        display: block;
+        line-height: 1.4;
+      }
+      .presupuesto-section {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+        padding: 2rem 2.5rem;
+        margin-bottom: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+      .form-check-label {
+        margin-right: 2rem;
+      }
+      .presupuesto-form label {
+        font-weight: 500;
+      }
+      .presupuesto-form input[type="text"],
+      .presupuesto-form input[type="email"],
+      .presupuesto-form input[type="tel"],
+      .presupuesto-form input[type="date"],
+      .presupuesto-form input[type="number"],
+      .presupuesto-form textarea {
+        background: #f8f9fa;
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+      }
+      .presupuesto-form .form-section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #7c1c2a;
+      }
+      @media (max-width: 600px) {
+        .salto-movil {
+          display: block;
+        }
+      }
+      @media (max-width: 767px) {
+        #tabla-viajes thead {
+          display: none;
+        }
+        #tabla-viajes,
+        #tabla-viajes tbody,
+        #tabla-viajes tr,
+        #tabla-viajes td {
+          display: block;
+          width: 100%;
+        }
+        #tabla-viajes tr {
+          margin-bottom: 1.5rem;
+          border: 1px solid #eee;
+          border-radius: 0.7rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+          background: #fff;
+          padding: 1rem;
+        }
+        #tabla-viajes td {
+          padding: 0.5rem 0;
+          border: none;
+        }
+        #tabla-viajes td:before {
+          content: attr(data-label);
+          font-weight: 600;
+          display: block;
+          margin-bottom: 0.2rem;
+          color: #7c1c2a;
+          font-size: 0.95rem;
+        }
+        #tabla-viajes .d-flex.flex-wrap.gap-1 {
+          gap: 0.5rem 0.7rem;
+          flex-wrap: wrap;
+        }
+        #tabla-viajes button.btn-danger {
+          width: 100%;
+          margin-top: 0.7rem;
+        }
+      }
+             @media print {
+         @page {
+           size: auto;
+           margin: 10mm;
+         }
+         html,
+         body {
+           width: 100vw !important;
+           min-width: 0 !important;
+           max-width: 100vw !important;
+           height: auto !important;
+           margin: 0 !important;
+           padding: 0 !important;
+           font-size: 14px !important;
+           background: #f4f6fa !important;
+           color: #222 !important;
+           font-family: "Inter", "Poppins", Arial, sans-serif !important;
+           overflow: visible !important;
+         }
+         /* Ocultar el título del documento en la impresión */
+         title {
+           display: none !important;
+         }
+        .container.presupuesto-sheet {
+          width: 100vw !important;
+          min-width: 0 !important;
+          max-width: 100vw !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+          background: #f4f6fa !important;
+          overflow: visible !important;
+        }
+        .presupuesto-section {
+          background: #fff !important;
+          border-radius: 1rem !important;
+          box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07) !important;
+          padding: 2rem 2.5rem !important;
+          margin-bottom: 2rem !important;
+          border: 1px solid #dee2e6 !important;
+          display: block !important;
+          width: 100% !important;
+        }
+        .presupuesto-header {
+          margin-bottom: 2rem !important;
+        }
+        .presupuesto-title {
+          font-size: 2rem !important;
+          font-weight: 700 !important;
+          color: #7c1c2a !important;
+        }
+        .form-section-title {
+          font-size: 1.2rem !important;
+          font-weight: 600 !important;
+          margin-bottom: 1rem !important;
+          color: #7c1c2a !important;
+        }
+        .presupuesto-contacto span {
+          color: #444 !important;
+          font-size: 1rem !important;
+        }
+        .row.g-3,
+        .row {
+          display: flex !important;
+          flex-wrap: wrap !important;
+          margin-left: -0.5rem !important;
+          margin-right: -0.5rem !important;
+        }
+        .col-md-4,
+        .col-md-3,
+        .col-md-6 {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+          box-sizing: border-box !important;
+          display: block !important;
+        }
+        .col-md-4 {
+          width: 33.3333% !important;
+        }
+        .col-md-3 {
+          width: 25% !important;
+        }
+        .col-md-6 {
+          width: 50% !important;
+        }
+        .btn,
+        button,
+        .wizard-progress {
+          display: none !important;
+        }
+        input,
+        select,
+        textarea {
+          border: 1px solid #dee2e6 !important;
+          background: #f8f9fa !important;
+          box-shadow: none !important;
+          outline: none !important;
+          color: #222 !important;
+          font-size: 14px !important;
+          padding: 0.375rem 0.75rem !important;
+          margin: 0 0 0.7rem 0 !important;
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          display: block !important;
+          border-radius: 0.5rem !important;
+        }
+        .mb-3,
+        .g-3 > * {
+          margin-bottom: 1rem !important;
+        }
+        label.form-label,
+        .form-check-label {
+          font-size: 1rem !important;
+          color: #555 !important;
+          margin-bottom: 0.2rem !important;
+          display: block !important;
+          font-weight: 500 !important;
+        }
+        .form-check {
+          display: inline-block !important;
+          margin-right: 1.5rem !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        .pdf-export {
+          background: #f4f6fa !important;
+          color: #222 !important;
+          font-size: 14px !important;
+          font-family: "Inter", "Poppins", Arial, sans-serif !important;
+        }
+        .pdf-export .presupuesto-section {
+          background: #fff !important;
+          border-radius: 1rem !important;
+          box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07) !important;
+          padding: 2rem 2.5rem !important;
+          margin-bottom: 2rem !important;
+          border: 1px solid #dee2e6 !important;
+          display: block !important;
+          width: 100% !important;
+        }
+        .pdf-export .btn,
+        .pdf-export button,
+        .pdf-export .wizard-progress {
+          display: none !important;
+        }
+        
+
+        .presupuesto-section,
+        .presupuesto-header {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        body,
+        html,
+        #paso4,
+        .container.presupuesto-sheet {
+          page-break-after: avoid !important;
+          page-break-before: avoid !important;
+          break-after: avoid !important;
+          break-before: avoid !important;
+          overflow: visible !important;
+        }
+        .table-responsive,
+        .table {
+          overflow: visible !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          background: #fff !important;
+        }
+        .table th,
+        .table td {
+          padding: 0.5rem 0.7rem !important;
+          font-size: 1rem !important;
+          border: 1px solid #dee2e6 !important;
+          background: #fff !important;
+        }
+      }
+      .input-group {
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+      }
+      .input-group-text {
+        background: #eafaf1 !important;
+        color: #1db954 !important;
+        font-weight: 700;
+        border: 1px solid #dee2e6 !important;
+        border-right: none !important;
+        border-radius: 0.5rem 0 0 0.5rem !important;
+        min-width: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      .input-group .form-control {
+        border-radius: 0 0.5rem 0.5rem 0 !important;
+        border-left: none !important;
+        height: 2.4rem !important;
+        margin: 0 !important;
+        padding-top: 0.375rem !important;
+        padding-bottom: 0.375rem !important;
+        font-size: 1rem !important;
+      }
+      @media (max-width: 767px) {
+        .row.g-3 > .col-md-4,
+        .row.g-3 > .col-md-3,
+        .row.g-3 > .col-md-6 {
+          width: 100% !important;
+          margin-bottom: 1rem !important;
+        }
+        .input-group {
+          width: 100% !important;
+        }
+      }
+      /* Ocultar radios de tipo de viaje en la vista previa y al imprimir */
+      #paso4 .tipo-viaje-radios {
+        display: none !important;
+      }
+      @media print {
+        #paso4 .tipo-viaje-radios {
+          display: none !important;
+        }
+      }
+      .valor-si {
+        color: #1db954;
+        font-weight: 600;
+      }
+                    .valor-no {
+          color: #888;
+          font-weight: 500;
+        }
+        
+        /* Estilos para el botón Volver al Dashboard */
+        .btn-volver-dashboard {
+          background: linear-gradient(135deg, #6c757d, #495057);
+          border: none;
+          color: white;
+          font-weight: 600;
+          padding: 10px 20px;
+          border-radius: 25px;
+          box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        
+        .btn-volver-dashboard:hover {
+          background: linear-gradient(135deg, #495057, #343a40);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+          color: white;
+        }
+        
+        .btn-volver-dashboard:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 10px rgba(108, 117, 125, 0.3);
+        }
+        
+        .btn-volver-dashboard i {
+          margin-right: 8px;
+          font-size: 1rem;
+        }
+        
+        /* Ocultar el título del documento en PDF y impresión */
+        .pdf-preview title,
+        .pdf-preview head,
+        .pdf-preview meta,
+        .pdf-preview link {
+          display: none !important;
+        }
+    </style>
+  </head>
+     <body style="background: #f4f6fa">
+     <div class="container presupuesto-sheet py-5">
+      <div class="presupuesto-header">
+        <div class="position-relative mb-3">
+                     <button 
+             type="button" 
+             class="btn btn-volver-dashboard position-absolute"
+             onclick="volverAlDashboard()"
+             style="top: 0; right: 0; z-index: 10;"
+           >
+             <i class="bi bi-arrow-left"></i> Volver
+           </button>
+          <div class="text-center">
+            <img src="Logo.jpg" alt="Remises Bruno" class="presupuesto-logo" />
+          </div>
+        </div>
+        <div class="presupuesto-title">
+          Presupuesto <span class="salto-movil">Remises Bruno</span>
+        </div>
+        <div class="presupuesto-contacto">
+          <span>Avenida Sarmiento 271, Chivilcoy</span>
+          <span>6620, Buenos Aires</span>
+          <span>Cuit: 20-36996946-4 / 20-16301412-3 / 27-33210467-0</span>
+          <span>Tel: 2346-433000 &nbsp;|&nbsp; Tel: 2346-427637</span>
+          <span>E-mail: remisesbrunochivilcoy@gmail.com</span>
+        </div>
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-4">
+            <label for="fechaPresupuesto" class="form-label"
+              >Fecha del presupuesto</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="fechaPresupuesto"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Wizard Progress (actualizar a 4 pasos) -->
+      <div class="wizard-progress mb-4">
+        <div class="progress" style="height: 8px">
+          <div
+            class="progress-bar"
+            id="wizardBar"
+            role="progressbar"
+            style="width: 25%"
+          ></div>
+        </div>
+        <div class="d-flex justify-content-between mt-1 small">
+          <span>Paso 1</span><span>Paso 2</span><span>Paso 3</span
+          ><span>Vista previa</span>
+        </div>
+      </div>
+      <form class="presupuesto-form">
+        <!-- Paso 1: Cliente -->
+        <div id="paso1">
+          <div class="presupuesto-section">
+            <div class="form-section-title">Cliente</div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label"
+                  >Nombre y Apellido / Razón Social</label
+                >
+                <input type="text" class="form-control" id="nombre" required />
+              </div>
+              <div class="col-md-3">
+                <label for="dni" class="form-label">DNI / CUIT</label>
+                <input type="text" class="form-control" id="dni" required />
+              </div>
+              <div class="col-md-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" required />
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email (opcional)</label>
+                <input type="email" class="form-control" id="email" />
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="siguientePaso(2)"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+        <!-- Paso 2: Tipo de viaje -->
+        <div id="paso2" style="display: none">
+          <div class="presupuesto-section">
+            <div class="form-section-title">
+              ¿Es un solo viaje o varios viajes?
+            </div>
+            <div class="mb-3">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipoViaje"
+                  id="viajeUnico"
+                  value="unico"
+                  checked
+                />
+                <label class="form-check-label" for="viajeUnico"
+                  >Un solo viaje</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipoViaje"
+                  id="viajeVarios"
+                  value="varios"
+                />
+                <label class="form-check-label" for="viajeVarios"
+                  >Varios viajes</label
+                >
+              </div>
+            </div>
+            <div id="formViajeUnico">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="fechaUnico" class="form-label"
+                    >Fecha del viaje</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaUnico"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="origenUnico" class="form-label">Origen</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="origenUnico"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="destinoUnico" class="form-label">Destino</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="destinoUnico"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="horaUnico" class="form-label"
+                    >Horario estimado de salida</label
+                  >
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="horaUnico"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">¿Incluye espera?</label><br />
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="esperaUnico"
+                      id="esperaUnicoNo"
+                      value="No"
+                      checked
+                    />
+                    <label class="form-check-label" for="esperaUnicoNo"
+                      >No</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="esperaUnico"
+                      id="esperaUnicoSi"
+                      value="Sí"
+                    />
+                    <label class="form-check-label" for="esperaUnicoSi"
+                      >Sí</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">¿Incluye peajes?</label><br />
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="peajesUnico"
+                      id="peajesUnicoNo"
+                      value="No"
+                      checked
+                    />
+                    <label class="form-check-label" for="peajesUnicoNo"
+                      >No</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="peajesUnico"
+                      id="peajesUnicoSi"
+                      value="Sí"
+                    />
+                    <label class="form-check-label" for="peajesUnicoSi"
+                      >Sí</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="formViajeVarios" style="display: none">
+              <div class="table-responsive mt-3">
+                <table class="table align-middle" id="tabla-viajes">
+                  <thead>
+                    <tr>
+                      <th>Origen</th>
+                      <th>Destino</th>
+                      <th>Horario</th>
+                      <th>Días</th>
+                      <th>Espera</th>
+                      <th>Peajes</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="origen[]"
+                          required
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="destino[]"
+                          required
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="time"
+                          class="form-control"
+                          name="hora[]"
+                          required
+                        />
+                      </td>
+                      <td>
+                        <div class="d-flex flex-wrap gap-1">
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Lunes"
+                            />
+                            Lu</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Martes"
+                            />
+                            Ma</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Miércoles"
+                            />
+                            Mi</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Jueves"
+                            />
+                            Ju</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Viernes"
+                            />
+                            Vi</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Sábado"
+                            />
+                            Sa</label
+                          >
+                          <label class="form-check-label"
+                            ><input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="dias0[]"
+                              value="Domingo"
+                            />
+                            Do</label
+                          >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="espera0"
+                            value="No"
+                            checked
+                          />
+                          <label class="form-check-label">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="espera0"
+                            value="Sí"
+                          />
+                          <label class="form-check-label">Sí</label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="peajes0"
+                            value="No"
+                            checked
+                          />
+                          <label class="form-check-label">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="peajes0"
+                            value="Sí"
+                          />
+                          <label class="form-check-label">Sí</label>
+                        </div>
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm"
+                          onclick="eliminarViaje(this)"
+                          title="Eliminar viaje"
+                          style="display: none"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                onclick="agregarViaje()"
+              >
+                <i class="bi bi-plus-circle"></i> Agregar viaje
+              </button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="siguientePaso(1)"
+            >
+              Anterior
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="siguientePaso(3)"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+        <!-- Paso 3: Costos -->
+        <div id="paso3" style="display: none">
+          <div class="presupuesto-section">
+            <div class="form-section-title">💲 Costo del servicio</div>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="tarifaBase" class="form-label">Tarifa base</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="tarifaBase" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="horasEspera" class="form-label"
+                  >Horas de espera</label
+                >
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="horasEspera" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="peajesCosto" class="form-label">Peajes</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="peajesCosto" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="otrosCargos" class="form-label">Otros cargos</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="otrosCargos" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="total" class="form-label">✅ Total estimado</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="total" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="siguientePaso(2)"
+            >
+              Anterior
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="siguientePaso(4)"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+        <!-- Paso 4: Vista previa editable -->
+        <div id="paso4" style="display: none">
+          <div class="presupuesto-section">
+            <div class="form-section-title">Cliente</div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre4" class="form-label"
+                  >Nombre y Apellido / Razón Social</label
+                >
+                <input type="text" class="form-control" id="nombre4" required />
+              </div>
+              <div class="col-md-3">
+                <label for="dni4" class="form-label">DNI / CUIT</label>
+                <input type="text" class="form-control" id="dni4" required />
+              </div>
+              <div class="col-md-3">
+                <label for="telefono4" class="form-label">Teléfono</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="telefono4"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="email4" class="form-label">Email (opcional)</label>
+                <input type="email" class="form-control" id="email4" />
+              </div>
+              <div class="col-md-6">
+                <label for="fechaPresupuesto4" class="form-label">Fecha del presupuesto</label>
+                <input type="date" class="form-control" id="fechaPresupuesto4" required />
+              </div>
+            </div>
+          </div>
+          <div class="presupuesto-section">
+            <div class="form-section-title">Detalle del viaje/s</div>
+            <div class="mb-3 tipo-viaje-radios">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipoViaje4"
+                  id="viajeUnico4"
+                  value="unico"
+                  checked
+                />
+                <label class="form-check-label" for="viajeUnico4"
+                  >Un solo viaje</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipoViaje4"
+                  id="viajeVarios4"
+                  value="varios"
+                />
+                <label class="form-check-label" for="viajeVarios4"
+                  >Varios viajes</label
+                >
+              </div>
+            </div>
+            <div id="formViajeUnico4">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="fechaUnico4" class="form-label"
+                    >Fecha del viaje</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaUnico4"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="origenUnico4" class="form-label">Origen</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="origenUnico4"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="destinoUnico4" class="form-label">Destino</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="destinoUnico4"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="horaUnico4" class="form-label"
+                    >Horario estimado de salida</label
+                  >
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="horaUnico4"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">¿Incluye espera?</label><br />
+                  <span id="esperaUnico4Texto"></span>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">¿Incluye peajes?</label><br />
+                  <span id="peajesUnico4Texto"></span>
+                </div>
+              </div>
+            </div>
+            <div id="formViajeVarios4" style="display: none">
+              <div class="table-responsive mt-3">
+                <table
+                  class="table table-sm align-middle table-bordered"
+                  id="tabla-viajes4-preview"
+                >
+                  <thead>
+                    <tr>
+                      <th>Origen</th>
+                      <th>Destino</th>
+                      <th>Horario</th>
+                      <th>Días</th>
+                      <th>Espera</th>
+                      <th>Peajes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Las filas se llenan dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="presupuesto-section">
+            <div class="form-section-title">💲 Costo del servicio</div>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="tarifaBase4" class="form-label">Tarifa base</label>
+                <div class="input-group align-items-center">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="tarifaBase4" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="horasEspera4" class="form-label"
+                  >Horas de espera</label
+                >
+                <div class="input-group align-items-center">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="horasEspera4" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="peajesCosto4" class="form-label">Peajes</label>
+                <div class="input-group align-items-center">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="peajesCosto4" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="otrosCargos4" class="form-label"
+                  >Otros cargos</label
+                >
+                <div class="input-group align-items-center">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" id="otrosCargos4" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="total4" class="form-label">✅ Total estimado</label>
+                <div class="input-group align-items-center">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="total4"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="presupuesto-section text-center"
+            style="
+              margin-top: 2rem;
+              font-size: 1.1rem;
+              color: #7c1c2a;
+              border: 1px dashed #7c1c2a;
+              background: #fff8f8;
+            "
+          >
+            <strong
+              >Este presupuesto tiene una validez de 7 días.<br />Los precios
+              pueden variar sin previo aviso.</strong
+            >
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="siguientePaso(3)"
+            >
+              Anterior
+            </button>
+            <button
+              type="button"
+              class="btn btn-success btn-lg"
+              onclick="imprimirVistaPrevia()"
+            >
+              Generar PDF
+            </button>
+
+            <button
+              id="installPWA"
+              type="button"
+              class="btn btn-success btn-lg"
+              style="display: none;"
+            >
+              📱 Instalar App
+            </button>
+          </div>
+        </div>
+      </form>
+      <!-- Agregar una sección oculta para el PDF -->
+      <div id="pdf-preview" style="display: none">
+        <div class="presupuesto-header">
+          <img src="Logo.jpg" alt="Remises Bruno" class="presupuesto-logo" />
+          <div class="presupuesto-title">Presupuesto – Remises Bruno</div>
+          <div class="presupuesto-contacto">
+            <span id="pdf-direccion">Avenida Sarmiento 271, Chivilcoy</span>
+            <span id="pdf-localidad">6620, Buenos Aires</span>
+            <span id="pdf-cuit"
+              >Cuit: 20-36996946-4 / 20-16301412-3 / 27-33210467-0</span
+            >
+            <span id="pdf-tel">Tel: 2346-433000 | Tel: 2346-427637</span>
+            <span id="pdf-mail">E-mail: remisesbrunochivilcoy@gmail.com</span>
+          </div>
+        </div>
+        <div class="presupuesto-section">
+          <div class="form-section-title">Datos del cliente</div>
+          <div><b>Nombre:</b> <span id="pdf-nombre"></span></div>
+          <div><b>DNI/CUIT:</b> <span id="pdf-dni"></span></div>
+          <div><b>Teléfono:</b> <span id="pdf-telefono"></span></div>
+          <div><b>Email:</b> <span id="pdf-email"></span></div>
+          <div>
+            <b>Fecha del presupuesto:</b>
+            <span id="pdf-fechaPresupuesto"></span>
+          </div>
+        </div>
+        <div class="presupuesto-section">
+          <div class="form-section-title">Detalles del viaje</div>
+          <div id="pdf-viaje-unico" style="display: none">
+            <div><b>Fecha:</b> <span id="pdf-fechaUnico"></span></div>
+            <div><b>Origen:</b> <span id="pdf-origenUnico"></span></div>
+            <div><b>Destino:</b> <span id="pdf-destinoUnico"></span></div>
+            <div><b>Horario:</b> <span id="pdf-horaUnico"></span></div>
+            <div><b>Incluye espera:</b> <span id="pdf-esperaUnico"></span></div>
+            <div><b>Incluye peajes:</b> <span id="pdf-peajesUnico"></span></div>
+          </div>
+          <div id="pdf-viaje-varios" style="display: none">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Origen</th>
+                  <th>Destino</th>
+                  <th>Horario</th>
+                  <th>Días</th>
+                  <th>Espera</th>
+                  <th>Peajes</th>
+                </tr>
+              </thead>
+              <tbody id="pdf-viajes-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="presupuesto-section">
+          <div class="form-section-title">Costos</div>
+          <div><b>Tarifa base:</b> $<span id="pdf-tarifaBase"></span></div>
+          <div><b>Horas de espera:</b> $<span id="pdf-horasEspera"></span></div>
+          <div><b>Peajes:</b> $<span id="pdf-peajesCosto"></span></div>
+          <div><b>Otros cargos:</b> $<span id="pdf-otrosCargos"></span></div>
+          <div><b>Total estimado:</b> $<span id="pdf-total"></span></div>
+        </div>
+      </div>
+      <script>
+        function parseNumber(val) {
+          val = val.replace(/\./g, "").replace(/,/g, ".");
+          return parseFloat(val) || 0;
+        }
+        function updateTotal() {
+          const base = parseNumber(document.getElementById("tarifaBase").value);
+          const espera = parseNumber(
+            document.getElementById("horasEspera").value
+          );
+          const peajes = parseNumber(
+            document.getElementById("peajesCosto").value
+          );
+          const otros = parseNumber(
+            document.getElementById("otrosCargos").value
+          );
+          const total = base + espera + peajes + otros;
+          document.getElementById("total").value =
+            total > 0
+              ? total.toLocaleString("es-AR", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+              : "";
+        }
+        function agregarViaje() {
+          const tabla = document
+            .getElementById("tabla-viajes")
+            .getElementsByTagName("tbody")[0];
+          const index = tabla.rows.length;
+          const row = tabla.rows[0].cloneNode(true);
+          // Limpiar valores y setear data-labels
+          const labels = [
+            "Origen",
+            "Destino",
+            "Horario",
+            "Días",
+            "Espera",
+            "Peajes",
+            "",
+          ];
+          row
+            .querySelectorAll("td")
+            .forEach((td, i) => td.setAttribute("data-label", labels[i]));
+          row.querySelectorAll("input").forEach((input) => {
+            if (input.type === "checkbox") {
+              input.checked = false;
+              input.name = "dias" + index + "[]";
+            } else if (input.type === "radio") {
+              input.checked = false;
+              input.name = input.name.replace(/\d+/, index);
+            } else {
+              input.value = "";
+            }
+          });
+          // Mostrar botón eliminar
+          row.querySelector("button").style.display = "";
+          tabla.appendChild(row);
+          
+          // Actualizar vista previa del paso 4 si está visible
+          if (document.getElementById("paso4").style.display !== "none") {
+            sincronizarHaciaPaso4();
+          }
+        }
+        function eliminarViaje(btn) {
+          const row = btn.closest("tr");
+          const tabla = document
+            .getElementById("tabla-viajes")
+            .getElementsByTagName("tbody")[0];
+          if (tabla.rows.length > 1) row.remove();
+          
+          // Actualizar vista previa del paso 4 si está visible
+          if (document.getElementById("paso4").style.display !== "none") {
+            sincronizarHaciaPaso4();
+          }
+        }
+        // Wizard navigation
+        function siguientePaso(n) {
+          document.getElementById("paso1").style.display =
+            n === 1 ? "" : "none";
+          document.getElementById("paso2").style.display =
+            n === 2 ? "" : "none";
+          document.getElementById("paso3").style.display =
+            n === 3 ? "" : "none";
+          document.getElementById("paso4").style.display =
+            n === 4 ? "" : "none";
+          // Barra de progreso
+          const bar = document.getElementById("wizardBar");
+          bar.style.width =
+            n === 1 ? "25%" : n === 2 ? "50%" : n === 3 ? "75%" : "100%";
+        }
+        // Mostrar/ocultar formularios según tipo de viaje
+        function toggleTipoViaje() {
+          const unico = document.getElementById("viajeUnico").checked;
+          document.getElementById("formViajeUnico").style.display = unico
+            ? ""
+            : "none";
+          document.getElementById("formViajeVarios").style.display = unico
+            ? "none"
+            : "";
+          
+          // También actualizar el paso 4 si está visible
+          if (document.getElementById("paso4").style.display !== "none") {
+            document.getElementById("viajeUnico4").checked = unico;
+            document.getElementById("viajeVarios4").checked = !unico;
+            
+            if (unico) {
+              document.getElementById("formViajeUnico4").style.display = "";
+              document.getElementById("formViajeVarios4").style.display = "none";
+            } else {
+              document.getElementById("formViajeUnico4").style.display = "none";
+              document.getElementById("formViajeVarios4").style.display = "";
+            }
+          }
+        }
+        document
+          .getElementById("viajeUnico")
+          .addEventListener("change", toggleTipoViaje);
+        document
+          .getElementById("viajeVarios")
+          .addEventListener("change", toggleTipoViaje);
+        document.addEventListener("DOMContentLoaded", function () {
+          ["tarifaBase", "horasEspera", "peajesCosto", "otrosCargos"].forEach(
+            (id) => {
+              const el = document.getElementById(id);
+              if (el) el.addEventListener("input", updateTotal);
+            }
+          );
+          
+          // Set default date for fechaPresupuesto
+          var fechaInput = document.getElementById("fechaPresupuesto");
+          if (fechaInput && !fechaInput.value) {
+            var today = new Date();
+            var yyyy = today.getFullYear();
+            var mm = String(today.getMonth() + 1).padStart(2, "0");
+            var dd = String(today.getDate()).padStart(2, "0");
+            fechaInput.value = yyyy + "-" + mm + "-" + dd;
+          }
+          
+          // Agregar event listeners para sincronización automática
+          var camposCliente = ["nombre", "dni", "telefono", "email"];
+          camposCliente.forEach(function(campo) {
+            var el = document.getElementById(campo);
+            if (el) {
+              el.addEventListener("input", function() {
+                var campo4 = document.getElementById(campo + "4");
+                if (campo4) campo4.value = this.value;
+              });
+            }
+          });
+          
+          // Event listener para fecha presupuesto
+          var fechaPresupuesto = document.getElementById("fechaPresupuesto");
+          if (fechaPresupuesto) {
+            fechaPresupuesto.addEventListener("input", function() {
+              var fecha4 = document.getElementById("fechaPresupuesto4");
+              if (fecha4) fecha4.value = this.value;
+            });
+          }
+          
+          // Event listeners para campos de viaje único
+          var camposViajeUnico = ["fechaUnico", "origenUnico", "destinoUnico", "horaUnico"];
+          camposViajeUnico.forEach(function(campo) {
+            var el = document.getElementById(campo);
+            if (el) {
+              el.addEventListener("input", function() {
+                var campo4 = document.getElementById(campo + "4");
+                if (campo4) campo4.value = this.value;
+              });
+            }
+          });
+          
+          // Event listeners para radios de espera y peajes
+          var radiosEspera = document.querySelectorAll('input[name="esperaUnico"]');
+          var radiosPeajes = document.querySelectorAll('input[name="peajesUnico"]');
+          
+          radiosEspera.forEach(function(radio) {
+            radio.addEventListener("change", function() {
+              var esperaTexto = document.getElementById("esperaUnico4Texto");
+              if (esperaTexto) esperaTexto.innerText = this.value;
+            });
+          });
+          
+          radiosPeajes.forEach(function(radio) {
+            radio.addEventListener("change", function() {
+              var peajesTexto = document.getElementById("peajesUnico4Texto");
+              if (peajesTexto) peajesTexto.innerText = this.value;
+            });
+          });
+          
+          // Event listeners para costos
+          var camposCostos = ["tarifaBase", "horasEspera", "peajesCosto", "otrosCargos"];
+          camposCostos.forEach(function(campo) {
+            var el = document.getElementById(campo);
+            if (el) {
+              el.addEventListener("input", function() {
+                var campo4 = document.getElementById(campo + "4");
+                if (campo4) campo4.value = this.value;
+                // También actualizar total
+                var total4 = document.getElementById("total4");
+                if (total4) total4.value = document.getElementById("total").value;
+              });
+            }
+          });
+          
+          const labels = [
+            "Origen",
+            "Destino",
+            "Horario",
+            "Días",
+            "Espera",
+            "Peajes",
+            "",
+          ];
+          document.querySelectorAll("#tabla-viajes tbody tr").forEach((tr) => {
+            tr.querySelectorAll("td").forEach((td, i) =>
+              td.setAttribute("data-label", labels[i])
+            );
+            
+            // Agregar event listeners para sincronización en tiempo real
+            var inputs = tr.querySelectorAll("input");
+            inputs.forEach(function(input) {
+              input.addEventListener("input", function() {
+                if (document.getElementById("paso4").style.display !== "none") {
+                  sincronizarHaciaPaso4();
+                }
+              });
+              
+              if (input.type === "checkbox" || input.type === "radio") {
+                input.addEventListener("change", function() {
+                  if (document.getElementById("paso4").style.display !== "none") {
+                    sincronizarHaciaPaso4();
+                  }
+                });
+              }
+            });
+          });
+        });
+      </script>
+      <script>
+        function sincronizarHaciaPDFPreview() {
+          // Cliente
+          document.getElementById("pdf-nombre").innerText = document.getElementById("nombre").value;
+          document.getElementById("pdf-dni").innerText = document.getElementById("dni").value;
+          document.getElementById("pdf-telefono").innerText = document.getElementById("telefono").value;
+          document.getElementById("pdf-email").innerText = document.getElementById("email").value;
+          // Fecha presupuesto
+          var fecha = document.getElementById("fechaPresupuesto").value;
+          document.getElementById("pdf-fechaPresupuesto").innerText = fecha;
+          // Costos
+          document.getElementById("pdf-tarifaBase").innerText = document.getElementById("tarifaBase").value;
+          document.getElementById("pdf-horasEspera").innerText = document.getElementById("horasEspera").value;
+          document.getElementById("pdf-peajesCosto").innerText = document.getElementById("peajesCosto").value;
+          document.getElementById("pdf-otrosCargos").innerText = document.getElementById("otrosCargos").value;
+          document.getElementById("pdf-total").innerText = document.getElementById("total").value;
+          // Tipo de viaje
+          var unico = document.getElementById("viajeUnico").checked;
+          var varios = document.getElementById("viajeVarios").checked;
+          document.getElementById("pdf-viaje-unico").style.display = unico ? "" : "none";
+          document.getElementById("pdf-viaje-varios").style.display = varios ? "" : "none";
+          if (unico) {
+            document.getElementById("pdf-fechaUnico").innerText = document.getElementById("fechaUnico").value;
+            document.getElementById("pdf-origenUnico").innerText = document.getElementById("origenUnico").value;
+            document.getElementById("pdf-destinoUnico").innerText = document.getElementById("destinoUnico").value;
+            document.getElementById("pdf-horaUnico").innerText = document.getElementById("horaUnico").value;
+            document.getElementById("pdf-esperaUnico").innerText = document.getElementById("esperaUnicoSi").checked ? "Sí" : "No";
+            document.getElementById("pdf-peajesUnico").innerText = document.getElementById("peajesUnicoSi").checked ? "Sí" : "No";
+          }
+          if (varios) {
+            var tbody = document.getElementById("pdf-viajes-tbody");
+            tbody.innerHTML = "";
+            var tablaOriginal = document.getElementById("tabla-viajes").getElementsByTagName("tbody")[0];
+            for (var i = 0; i < tablaOriginal.rows.length; i++) {
+              var rowO = tablaOriginal.rows[i];
+              var origen = rowO.querySelector("input[name^=origen]").value;
+              var destino = rowO.querySelector("input[name^=destino]").value;
+              var hora = rowO.querySelector("input[name^=hora]").value;
+              var dias = Array.from(rowO.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value.substr(0, 2)).join(", ");
+              var esperaVal = rowO.querySelector("input[type=radio][name^=espera]:checked")?.value || "";
+              var peajesVal = rowO.querySelector("input[type=radio][name^=peajes]:checked")?.value || "";
+              var tr = document.createElement("tr");
+              tr.innerHTML = `<td>${origen}</td><td>${destino}</td><td>${hora}</td><td>${dias}</td><td>${esperaVal}</td><td>${peajesVal}</td>`;
+              tbody.appendChild(tr);
+            }
+          }
+        }
+
+        // Función para sincronizar datos hacia el paso 4 (vista previa editable)
+        function sincronizarHaciaPaso4() {
+          // Cliente
+          document.getElementById("nombre4").value = document.getElementById("nombre").value;
+          document.getElementById("dni4").value = document.getElementById("dni").value;
+          document.getElementById("telefono4").value = document.getElementById("telefono").value;
+          document.getElementById("email4").value = document.getElementById("email").value;
+          
+          // Fecha presupuesto
+          document.getElementById("fechaPresupuesto4").value = document.getElementById("fechaPresupuesto").value;
+          
+          // Tipo de viaje
+          var unico = document.getElementById("viajeUnico").checked;
+          var varios = document.getElementById("viajeVarios").checked;
+          
+          document.getElementById("viajeUnico4").checked = unico;
+          document.getElementById("viajeVarios4").checked = varios;
+          
+          if (unico) {
+            document.getElementById("formViajeUnico4").style.display = "";
+            document.getElementById("formViajeVarios4").style.display = "none";
+            
+            document.getElementById("fechaUnico4").value = document.getElementById("fechaUnico").value;
+            document.getElementById("origenUnico4").value = document.getElementById("origenUnico").value;
+            document.getElementById("destinoUnico4").value = document.getElementById("destinoUnico").value;
+            document.getElementById("horaUnico4").value = document.getElementById("horaUnico").value;
+            
+            // Mostrar texto de espera y peajes
+            var esperaTexto = document.getElementById("esperaUnicoSi").checked ? "Sí" : "No";
+            var peajesTexto = document.getElementById("peajesUnicoSi").checked ? "Sí" : "No";
+            document.getElementById("esperaUnico4Texto").innerText = esperaTexto;
+            document.getElementById("peajesUnico4Texto").innerText = peajesTexto;
+          }
+          
+          if (varios) {
+            document.getElementById("formViajeUnico4").style.display = "none";
+            document.getElementById("formViajeVarios4").style.display = "";
+            
+            // Sincronizar tabla de viajes
+            var tablaPreview = document.getElementById("tabla-viajes4-preview").getElementsByTagName("tbody")[0];
+            var tablaOriginal = document.getElementById("tabla-viajes").getElementsByTagName("tbody")[0];
+            
+            tablaPreview.innerHTML = "";
+            
+            for (var i = 0; i < tablaOriginal.rows.length; i++) {
+              var rowO = tablaOriginal.rows[i];
+              var origen = rowO.querySelector("input[name^=origen]").value;
+              var destino = rowO.querySelector("input[name^=destino]").value;
+              var hora = rowO.querySelector("input[name^=hora]").value;
+              
+              var dias = Array.from(rowO.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value.substr(0, 2)).join(", ");
+              var esperaVal = rowO.querySelector("input[type=radio][name^=espera]:checked")?.value || "No";
+              var peajesVal = rowO.querySelector("input[type=radio][name^=peajes]:checked")?.value || "No";
+              
+              var tr = document.createElement("tr");
+              tr.innerHTML = `<td>${origen}</td><td>${destino}</td><td>${hora}</td><td>${dias}</td><td>${esperaVal}</td><td>${peajesVal}</td>`;
+              tablaPreview.appendChild(tr);
+            }
+          }
+          
+          // Costos
+          document.getElementById("tarifaBase4").value = document.getElementById("tarifaBase").value;
+          document.getElementById("horasEspera4").value = document.getElementById("horasEspera").value;
+          document.getElementById("peajesCosto4").value = document.getElementById("peajesCosto").value;
+          document.getElementById("otrosCargos4").value = document.getElementById("otrosCargos").value;
+          document.getElementById("total4").value = document.getElementById("total").value;
+        }
+        // Llamar a la sincronización al pasar al paso 4
+        const oldSiguientePasoSync = window.siguientePaso;
+        window.siguientePaso = function (n) {
+          oldSiguientePasoSync(n);
+          if (n === 4) {
+            sincronizarHaciaPaso4();
+            sincronizarHaciaPDFPreview();
+          }
+        };
+      </script>
+      <script>
+        function imprimirVistaPrevia() {
+          sincronizarHaciaPDFPreview();
+          var pdfPreview = document.getElementById("pdf-preview");
+          
+          // Crear un contenedor temporal solo para la impresión
+          var tempContainer = document.createElement('div');
+          tempContainer.innerHTML = pdfPreview.innerHTML;
+          tempContainer.style.position = 'absolute';
+          tempContainer.style.left = '-9999px';
+          tempContainer.style.top = '0';
+          tempContainer.style.width = '100%';
+          tempContainer.style.background = '#fff';
+          
+          // Limpiar cualquier elemento del head que pueda estar presente
+          var headElements = tempContainer.querySelectorAll('head, title, meta, link');
+          headElements.forEach(function(el) { el.remove(); });
+          
+          document.body.appendChild(tempContainer);
+          
+          // Ocultar todo el contenido principal
+          var mainContainer = document.querySelector('.container.presupuesto-sheet');
+          var originalDisplay = mainContainer.style.display;
+          mainContainer.style.display = 'none';
+          
+          // Mostrar solo el contenedor temporal
+          tempContainer.style.position = 'static';
+          tempContainer.style.left = 'auto';
+          tempContainer.style.top = 'auto';
+          
+          setTimeout(() => {
+            window.print();
+            setTimeout(() => {
+              // Restaurar todo
+              mainContainer.style.display = originalDisplay;
+              document.body.removeChild(tempContainer);
+            }, 100);
+          }, 100);
+        }
+      </script>
+    </div>
+    <script>
+      // Service Worker Registration
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js")
+            .then(function(registration) {
+              console.log('Service Worker registrado exitosamente:', registration.scope);
+              
+              // Verificar actualizaciones
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Nueva versión disponible
+                    if (confirm('Hay una nueva versión disponible. ¿Deseas actualizar?')) {
+                      newWorker.postMessage({ type: 'SKIP_WAITING' });
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch(function(error) {
+              console.log('Error al registrar Service Worker:', error);
+            });
+        });
+      }
+      // PWA Install Prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Mostrar botón de instalación si es necesario
+        const installButton = document.getElementById('installPWA');
+        if (installButton) {
+          installButton.style.display = 'block';
+          installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const { outcome } = await deferredPrompt.userChoice;
+              console.log(`Usuario ${outcome === 'accepted' ? 'aceptó' : 'rechazó'} la instalación`);
+              deferredPrompt = null;
+              installButton.style.display = 'none';
+            }
+          });
+        }
+      });
+
+      // Detectar si la app está instalada
+      window.addEventListener('appinstalled', (evt) => {
+        console.log('Aplicación instalada');
+        const installButton = document.getElementById('installPWA');
+        if (installButton) {
+          installButton.style.display = 'none';
+        }
+      });
+
+      
+    </script>
+    <!-- Incluir html2pdf.js antes del cierre de body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+      async function compartirPDF() {
+        sincronizarHaciaPDFPreview();
+        const pdfPreview = document.getElementById("pdf-preview");
+        
+        // Crear un contenedor temporal solo para el PDF
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = pdfPreview.innerHTML;
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '0';
+        tempContainer.style.width = '100%';
+        tempContainer.style.background = '#fff';
+        
+        // Limpiar cualquier elemento del head que pueda estar presente
+        const headElements = tempContainer.querySelectorAll('head, title, meta, link');
+        headElements.forEach(el => el.remove());
+        
+        document.body.appendChild(tempContainer);
+        
+        try {
+          const opt = {
+            margin: 0,
+            filename: "Presupuesto.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          };
+          
+          const pdfBlob = await html2pdf()
+            .set(opt)
+            .from(tempContainer)
+            .outputPdf("blob");
+            
+          const nombreCliente = document.getElementById("nombre").value || "Remises Bruno";
+          const file = new File(
+            [pdfBlob],
+            `Presupuesto - ${nombreCliente}.pdf`,
+            { type: "application/pdf" }
+          );
+          
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                title: `Presupuesto - ${nombreCliente}`,
+                text: "Te envío el presupuesto generado.",
+                files: [file],
+              });
+            } catch (err) {
+              alert("No se pudo compartir el PDF: " + err);
+            }
+          } else {
+            // Alternativa: descarga automática
+            const url = URL.createObjectURL(file);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = file.name;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert("No se puede compartir, pero el PDF se descargó.");
+          }
+        } catch (error) {
+          alert("Error al generar el PDF: " + error.message);
+        } finally {
+          // Limpiar el contenedor temporal
+          document.body.removeChild(tempContainer);
+        }
+      }
+      
+      // Función para volver al dashboard principal
+      function volverAlDashboard() {
+        window.location.href = '../';
+      }
+    </script>
+
+  </body>
+</html>
