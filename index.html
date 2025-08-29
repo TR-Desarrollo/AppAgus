@@ -6,21 +6,12 @@
     <title>AppAgus - Dashboard de Remises Bruno</title>
     <meta name="description" content="Dashboard PWA para gestión de Remises Bruno - Presupuestos y finanzas">
     <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="AppAgus">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="LogoCaballo.jpg">
     <link rel="apple-touch-icon" href="LogoCaballo.jpg">
-    <script>
-        // Registrar Service Worker ULTRA SIMPLE para evitar pantalla azul
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw-ultra-simple.js')
-                .then((registration) => {
-                    console.log('Service Worker ULTRA SIMPLE registrado:', registration.scope);
-                })
-                .catch((error) => {
-                    console.error('Error registrando Service Worker:', error);
-                });
-        }
-    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -35,7 +26,7 @@
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"/>
                         </svg>
-                        Instalar
+                        Instalar App
                     </button>
                 </div>
             </div>
@@ -79,9 +70,21 @@
                             <p>Gestión de A.R.T (Proximamente)</p>
                         </div>
                     </button>
+
+                    <button class="action-card">
+                        <div class="action-icon">
+                            <svg width="32" height="32" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h4>Sanatorio</h4>
+                            <p>Detalle RC-Onco y PBB</p>
+                        </div>
+                    </button>
                 </div>
             </section>
-
 
         </main>
 
@@ -91,31 +94,124 @@
         </footer>
     </div>
 
-    <!-- Modal para Presupuesto (ya no necesario) -->
-    <!-- <div class="modal" id="presupuestoModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Gestión de Presupuesto</h3>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Aquí podrás gestionar tu presupuesto mensual, establecer categorías de gastos y hacer seguimiento de tus finanzas.</p>
-                <div class="modal-actions">
-                    <button class="btn btn-primary">Crear Presupuesto</button>
-                    <button class="btn btn-secondary">Ver Historial</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <script src="app.js"></script>
     <script>
-        // Registrar Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(registration => console.log('SW registrado:', registration))
-                .catch(error => console.log('SW error:', error));
+        // ===== REGISTRO DEL SERVICE WORKER =====
+        console.log('🔄 Iniciando registro del Service Worker...');
+        
+        // Función para registrar el Service Worker
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    console.log('✅ Service Worker soportado, registrando...');
+                    
+                    // Intentar registrar el Service Worker
+                    const registration = await navigator.serviceWorker.register('./sw-ultra-simple.js', {
+                        scope: './'
+                    });
+                    
+                    console.log('✅ Service Worker registrado exitosamente:', registration.scope);
+                    console.log('📱 Estado del Service Worker:', registration.active ? 'Activo' : 'Inactivo');
+                    
+                    // Verificar si ya está activo
+                    if (registration.active) {
+                        console.log('🚀 Service Worker ya está activo');
+                    } else {
+                        console.log('⏳ Service Worker registrado, esperando activación...');
+                    }
+                    
+                    // Escuchar cambios en el Service Worker
+                    registration.addEventListener('updatefound', () => {
+                        console.log('🔄 Nueva versión del Service Worker encontrada');
+                    });
+                    
+                    // Escuchar cuando el Service Worker se activa
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        console.log('🎯 Service Worker tomó el control');
+                    });
+                    
+                    return registration;
+                    
+                } catch (error) {
+                    console.error('❌ Error registrando Service Worker:', error);
+                    console.error('🔍 Detalles del error:', {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack
+                    });
+                    return null;
+                }
+            } else {
+                console.error('❌ Service Worker no soportado en este navegador');
+                return null;
+            }
         }
+
+        // ===== FUNCIONALIDAD PWA =====
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        // Escuchar el evento beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('📱 Evento beforeinstallprompt detectado');
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+            console.log('✅ Botón de instalación mostrado');
+        });
+
+        // Manejar la instalación cuando se hace clic en el botón
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                console.log('🔧 Iniciando proceso de instalación...');
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`📱 Usuario ${outcome === 'accepted' ? 'aceptó' : 'rechazó'} la instalación`);
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            }
+        });
+
+        // Escuchar cuando la app se instala
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('🎉 Aplicación instalada exitosamente');
+            installBtn.style.display = 'none';
+        });
+
+        // Verificar si ya está instalada
+        if (window.matchMedia('(display-mode: standalone)').matches || 
+            window.navigator.standalone === true) {
+            console.log('🏠 La aplicación ya está instalada');
+            installBtn.style.display = 'none';
+        }
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 DOM cargado, iniciando AppAgus PWA...');
+            
+            // Registrar Service Worker
+            const swRegistration = await registerServiceWorker();
+            
+            if (swRegistration) {
+                console.log('✅ PWA inicializada correctamente');
+            } else {
+                console.error('❌ PWA no pudo inicializarse correctamente');
+            }
+        });
+
+        // ===== VERIFICACIÓN ADICIONAL =====
+        // Verificar el estado del Service Worker cada 5 segundos
+        setInterval(() => {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    if (registrations.length > 0) {
+                        console.log('🔍 Service Worker verificado:', registrations[0].scope);
+                    } else {
+                        console.warn('⚠️ No hay Service Workers registrados');
+                    }
+                });
+            }
+        }, 5000);
     </script>
 </body>
 </html>
